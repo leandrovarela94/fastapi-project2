@@ -28,7 +28,7 @@ def test_list_categories(db_session, categories_on_db):
     uc = CategoryUseCases(db_session=db_session)
 
     categories = uc.list_categories()
-
+    print(categories)
     assert len(categories) == 4
     assert type(categories[0]) == CategoryOutput
     assert categories[0].id == categories_on_db[0].id
