@@ -97,3 +97,7 @@ def test_delete_product_non_exist(db_session):
 
     with pytest.raises(HTTPException):
         uc.delete_product(id=1)
+
+
+def test_list_products(db_session):
+    pass
