@@ -1,5 +1,7 @@
 import re
 
+from pydantic import validator
+
 from app.schemas.base import CustomBaseModel
 
 
