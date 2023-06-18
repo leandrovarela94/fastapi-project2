@@ -70,13 +70,13 @@ def products_on_db(db_session):
     db_session.refresh(category)
 
     products = [
-        ProductModel(name="Camisa Abidas", slug="camisa-abidas",
+        ProductModel(name="Camisa Mike", slug="camisa-mike",
                      price=100, stock=10, category_id=category.id),
-        ProductModel(name="Camisa Abidas", slug="camisa-abidas",
+        ProductModel(name="Moleton Mike", slug="moleton",
                      price=100, stock=10, category_id=category.id),
-        ProductModel(name="Camisa Abidas", slug="camisa-abidas",
+        ProductModel(name="Camiseta", slug="camiseta-mike",
                      price=100, stock=10, category_id=category.id),
-        ProductModel(name="Camisa Abidas", slug="camisa-abidas",
+        ProductModel(name="Short", slug="short",
                      price=100, stock=10, category_id=category.id)
     ]
     for product in products:

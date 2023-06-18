@@ -6,7 +6,7 @@ from app.routes.deps import get_db_sesion
 from app.schemas.product import Product, ProductInput
 from app.use_cases.product import ProductUseCases
 
-router = APIRouter(prefix='/product')
+router = APIRouter(prefix='/product', tags=["Product"])
 
 
 @router.post('/add')
@@ -50,9 +50,11 @@ def delete_product(
 
 
 @router.get("/list/")
-def list_products(db_session: Session = Depends(get_db_sesion)
-                  ):
+def list_products(
+    search: str = "",
+    db_session: Session = Depends(get_db_sesion)
+):
     uc = ProductUseCases(db_session=db_session)
-    products = uc.list_products()
+    products = uc.list_products(search=search)
 
     return products

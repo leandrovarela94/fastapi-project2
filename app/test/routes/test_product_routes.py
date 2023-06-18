@@ -103,7 +103,7 @@ def test_delete_product_route_invalid_id():
     assert response.status_code == status.HTTP_404_NOT_FOUND
 
 
-def test_list_products(products_on_db):
+def test_list_products_route(products_on_db):
     response = client.get("/product/list")
 
     assert response.status_code == status.HTTP_200_OK
@@ -111,6 +111,28 @@ def test_list_products(products_on_db):
     data = response.json()
 
     assert len(data) == 4
+
+    assert data[0] == {
+        "id": products_on_db[0].id,
+        "name": products_on_db[0].name,
+        "slug": products_on_db[0].slug,
+        "price": products_on_db[0].price,
+        "stock": products_on_db[0].stock,
+        "category": {
+            "name": products_on_db[0].category.name,
+            "slug": products_on_db[0].category.slug
+        }
+    }
+
+
+def test_list_products_route_with_search(products_on_db):
+    response = client.get("/product/list?search=mike")
+
+    assert response.status_code == status.HTTP_200_OK
+
+    data = response.json()
+
+    assert len(data) == 3
 
     assert data[0] == {
         "id": products_on_db[0].id,
