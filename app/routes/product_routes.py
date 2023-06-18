@@ -1,15 +1,17 @@
 
+from typing import List
+
 from fastapi import APIRouter, Depends, Response, status
 from sqlalchemy.orm import Session
 
 from app.routes.deps import get_db_sesion
-from app.schemas.product import Product, ProductInput
+from app.schemas.product import Product, ProductInput, ProductOutput
 from app.use_cases.product import ProductUseCases
 
 router = APIRouter(prefix='/product', tags=["Product"])
 
 
-@router.post('/add')
+@router.post('/add', status_code=status.HTTP_201_CREATED, description="Add new product")
 def add_product(
     product_input: ProductInput,
     db_session: Session = Depends(get_db_sesion)
@@ -24,7 +26,7 @@ def add_product(
     return Response(status_code=status.HTTP_201_CREATED)
 
 
-@router.put("/update/{id}")
+@router.put("/update/{id}", description="Updated product")
 def update_product(
     id: int,
     product: Product,
@@ -37,7 +39,7 @@ def update_product(
     return Response(status_code=status.HTTP_200_OK)
 
 
-@router.delete("/delete/{id}")
+@router.delete("/delete/{id}", description="Delete product")
 def delete_product(
     id: int,
     db_session: Session = Depends(get_db_sesion)
@@ -49,7 +51,7 @@ def delete_product(
     return Response(status_code=status.HTTP_200_OK)
 
 
-@router.get("/list/")
+@router.get("/list/", response_model=List[ProductOutput], description="List product")
 def list_products(
     search: str = "",
     db_session: Session = Depends(get_db_sesion)
