@@ -86,10 +86,11 @@ def products_on_db(db_session):
     for product in products:
         db_session.refresh(product)
 
-    yield product
+    yield products
 
     for product in products:
         db_session.delete(product)
 
     db_session.delete(category)
+
     db_session.commit()
